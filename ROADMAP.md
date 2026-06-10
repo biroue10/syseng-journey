@@ -168,9 +168,9 @@ En entretien senior, on te demandera comment tu as géré des incidents. La qual
 
 ---
 
-## MODULE 11 — Conteneurs Docker (bonus)
+## MODULE 11 — Conteneurs Docker
 
-> De plus en plus présent dans les infrastructures modernes.
+> De plus en plus présent dans les infrastructures modernes. Incontournable en 2026.
 
 ### Ce que tu vas apprendre :
 - **Concepts** : image, conteneur, registry, volumes, réseau Docker
@@ -178,17 +178,107 @@ En entretien senior, on te demandera comment tu as géré des incidents. La qual
 - **docker-compose** : orchestrer Nginx + MariaDB + PHP dans des conteneurs
 - **Intégration avec Nginx** : reverse proxy vers des conteneurs
 - **Persistance** : volumes pour les données MariaDB
+- **Sécurité** : utilisateur non-root dans les conteneurs, scan d'images
 
 ---
 
-## MODULE 12 — CI/CD et Git avancé (bonus)
+## MODULE 12 — Kubernetes (K8s)
 
-> Livrer plus vite et plus sûrement.
+> L'orchestrateur de conteneurs standard en entreprise. Requis pour tout poste senior en 2026.
 
 ### Ce que tu vas apprendre :
-- **Git avancé** : branches, merge, rebase, tags, workflows (GitFlow)
+- **Concepts** : pods, deployments, services, namespaces, ingress
+- **Installation** : cluster K8s avec k3s ou kubeadm sur RHEL
+- **kubectl** : déployer, scaler, inspecter des applications
+- **ConfigMaps et Secrets** : gérer la configuration et les credentials
+- **Persistent Volumes** : stocker les données hors des pods
+- **Helm** : gestionnaire de paquets K8s, déployer Prometheus/Grafana via Helm
+- **Monitoring K8s** : intégrer Prometheus pour surveiller le cluster
+
+### Pourquoi c'est important :
+La majorité des infrastructures modernes tournent sur Kubernetes. Un senior engineer qui ne connaît pas K8s est limité dans ses opportunités.
+
+---
+
+## MODULE 13 — Terraform — Infrastructure as Code
+
+> Provisionner l'infrastructure comme du code — reproductible, versionnable, auditable.
+
+### Ce que tu vas apprendre :
+- **Concepts** : providers, resources, state, plan, apply
+- **Premiers pas** : créer des VMs, des réseaux, des règles firewall
+- **Variables et outputs** : paramétrer l'infrastructure
+- **Modules** : réutiliser des blocs d'infrastructure
+- **Remote state** : partager le state entre équipes
+- **Cas pratique** : provisionner un serveur RHEL complet avec Nginx + MariaDB
+
+### Pourquoi c'est important :
+Terraform est le standard IaC en entreprise. Il complète Ansible (Terraform crée l'infra, Ansible la configure).
+
+---
+
+## MODULE 14 — Observabilité avancée (ELK / Loki)
+
+> Prometheus surveille les métriques. ELK ou Loki centralisent les logs de tous les serveurs.
+
+### Ce que tu vas apprendre :
+- **Loki + Promtail** : collecter et centraliser les logs dans Grafana (même stack que Prometheus)
+- **Elasticsearch + Kibana** : moteur de recherche sur les logs, dashboards avancés
+- **Logstash** : pipeline de traitement des logs
+- **Alerting sur les logs** : déclencher une alerte quand un pattern d'erreur apparaît
+- **Distributed tracing** : suivre une requête à travers plusieurs services
+- **Cas pratique** : centraliser les logs Nginx, MariaDB et système en un seul endroit
+
+### Pourquoi c'est important :
+Sur une infrastructure avec 10+ serveurs, lire les logs un par un est impossible. La centralisation des logs est essentielle pour le diagnostic d'incidents.
+
+---
+
+## MODULE 15 — Stack PHP-FPM (LEMP complet)
+
+> Compléter la stack web avec PHP pour faire tourner WordPress, Laravel ou toute app PHP.
+
+### Ce que tu vas apprendre :
+- **PHP-FPM** : FastCGI Process Manager, communication avec Nginx via socket Unix
+- **Configuration** : pools PHP-FPM, limites mémoire, timeout
+- **Nginx + PHP-FPM** : passer les requêtes `.php` à PHP-FPM
+- **Déploiement d'application** : WordPress ou Laravel en production
+- **OpCache** : accélérer PHP avec le cache d'opcodes
+- **Sécurité** : `open_basedir`, désactiver les fonctions dangereuses
+
+### Pourquoi c'est important :
+90% des sites web tournent sur PHP. Un sysadmin web qui ne sait pas configurer PHP-FPM est incomplet.
+
+---
+
+## MODULE 16 — Backup & Disaster Recovery
+
+> Les backups ne comptent que si on sait les restaurer.
+
+### Ce que tu vas apprendre :
+- **Stratégie 3-2-1** : 3 copies, 2 supports différents, 1 hors site
+- **rsync** : synchronisation incrémentale de fichiers entre serveurs
+- **Snapshots LVM** : backup cohérent sans arrêter les services
+- **Backup MariaDB** : mysqldump, xtrabackup pour les backups à chaud
+- **Restauration** : tester et documenter les procédures de restauration
+- **Rétention** : rotation automatique des sauvegardes (garder 7 jours, 4 semaines, 12 mois)
+- **RTO / RPO** : définir les objectifs de reprise
+
+### Pourquoi c'est important :
+Un ingénieur senior est responsable de la continuité de service. Sans backup testé, il n't y a pas de backup.
+
+---
+
+## MODULE 17 — CI/CD et Git avancé
+
+> Livrer plus vite et plus sûrement, sans intervention manuelle.
+
+### Ce que tu vas apprendre :
+- **Git avancé** : branches, merge, rebase, tags, workflows (GitFlow, trunk-based)
 - **GitHub Actions** : pipeline qui teste et déploie automatiquement
-- **Déploiement sans interruption** : blue/green, rolling updates
+- **Déploiement sans interruption** : blue/green, rolling updates, canary
+- **Tests automatisés** : lint, syntax check, tests d'intégration dans le pipeline
+- **Secrets dans CI/CD** : gérer les credentials de façon sécurisée
 
 ---
 
@@ -199,12 +289,17 @@ En entretien senior, on te demandera comment tu as géré des incidents. La qual
 | 01 Linux Fundamentals | ✅ | users, permissions, systemd, logs, réseau |
 | 02 Nginx | ✅ | install, vhost, SELinux, HTTPS, logs |
 | 03 MariaDB | ✅ | install, SQL, backup, Bash, cron |
-| 04 Monitoring | 🔜 | Prometheus, Grafana, alertes |
-| 05 Bash avancé | ⬜ | fonctions, parsing, déploiement |
-| 06 Système avancé | ⬜ | LVM, mémoire, réseau, kernel |
+| 04 Monitoring | ✅ | Prometheus, Grafana, alertes |
+| 05 Bash avancé | ⏸ | fonctions, parsing, déploiement |
+| 06 Linux Internals | ✅ | LVM, mémoire, processus, kernel |
 | 07 Haute disponibilité | ⬜ | load balancing, replication, failover |
 | 08 Ansible | ⬜ | playbooks, roles, IaC |
 | 09 Sécurité | ⬜ | hardening, Fail2ban, Let's Encrypt |
 | 10 Gestion d'incidents | ⬜ | diagnostic, post-mortem, runbooks |
-| 11 Docker (bonus) | ⬜ | conteneurs, compose, volumes |
-| 12 CI/CD (bonus) | ⬜ | GitHub Actions, déploiement auto |
+| 11 Docker | ⬜ | conteneurs, compose, sécurité |
+| 12 Kubernetes | ⬜ | pods, deployments, Helm, monitoring |
+| 13 Terraform | ⬜ | IaC, provisioning, modules |
+| 14 Observabilité (ELK/Loki) | ⬜ | logs centralisés, alerting, tracing |
+| 15 PHP-FPM (LEMP complet) | ⬜ | PHP-FPM, WordPress/Laravel, OpCache |
+| 16 Backup & Disaster Recovery | ⬜ | rsync, snapshots, RTO/RPO |
+| 17 CI/CD et Git avancé | ⬜ | GitHub Actions, blue/green, GitFlow |
