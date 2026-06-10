@@ -558,10 +558,156 @@ De plus en plus d'entreprises sont soumises à des audits de sécurité. Un ing�
 
 ---
 
+## MODULE 33 — C Programming pour comprendre le Kernel
+
+> Lire et comprendre le code source du kernel Linux. Le C est la langue du système.
+
+### Ce que tu vas apprendre :
+
+#### Bases du C (orientées système)
+- **Syntaxe fondamentale** : types, pointeurs, structures, unions, enums
+- **Gestion mémoire** : malloc/free, stack vs heap, memory leaks, valgrind
+- **Pointeurs** : arithmétique de pointeurs, pointeurs de fonctions — la clé du kernel
+- **Fichiers et I/O** : open, read, write, close — les syscalls POSIX réels
+- **Compilation** : gcc, make, Makefile, linking statique vs dynamique
+
+#### C système et kernel
+- **Syscalls** : comment un programme parle au kernel (strace, write(2))
+- **Signaux** : SIGTERM, SIGKILL, signal handlers en C
+- **Processus** : fork(), exec(), wait() — comment le kernel crée les processus
+- **Threads POSIX** : pthread, mutex, race conditions
+- **Modules kernel simples** : écrire, compiler et charger un module "Hello World" dans le kernel
+- **Lecture du code kernel** : naviguer dans le source Linux (Elixir Cross Referencer)
+- **eBPF** : programmes C légers qui tournent dans le kernel pour le monitoring et la sécurité
+
+### Pourquoi c'est important :
+Comprendre le C te permet de lire les man pages de niveau 2 (syscalls), de comprendre pourquoi `fork()` est coûteux, pourquoi les signaux interrompent les syscalls, et de déchiffrer les messages kernel. C'est la différence entre utiliser Linux et le comprendre vraiment.
+
+---
+
+## MODULE 34 — Certifications (Parcours officiel)
+
+> Les certifications Red Hat sont les plus respectées dans l'industrie Linux enterprise.
+
+### Parcours recommandé :
+
+```
+RHCSA (EX200)  ──►  RHCE (EX294)  ──►  CKA  ──►  AWS SAA
+   Junior            Ansible/Auto       K8s       Cloud
+```
+
+#### RHCSA — Red Hat Certified System Administrator
+- **Exam EX200** — pratique, 100% en ligne de commande, 3h
+- **Compétences testées** : gestion des utilisateurs, SELinux, LVM, systemd, réseau, firewall, stockage
+- **Préparation** : modules 01, 02, 03, 06, 09 de cette roadmap suffisent
+- **Valeur marché** : salaire moyen +$20k, requis dans de nombreuses offres enterprise
+
+#### RHCE — Red Hat Certified Engineer
+- **Exam EX294** — Ansible uniquement depuis 2020
+- **Compétences testées** : playbooks, roles, variables, handlers, Vault Ansible, templates Jinja2
+- **Préparation** : module 08 de cette roadmap + pratique intensive
+- **Valeur marché** : +15-20% de salaire vs RHCSA seul
+
+#### CKA — Certified Kubernetes Administrator
+- **Exam CNCF** — pratique, kubectl en ligne de commande
+- **Compétences testées** : déploiements, networking, stockage, sécurité, troubleshooting K8s
+- **Préparation** : module 12 de cette roadmap
+
+#### AWS Solutions Architect Associate
+- **Exam SAA-C03** — QCM + scénarios
+- **Compétences testées** : EC2, S3, RDS, VPC, IAM, architecture cloud
+- **Préparation** : module 30 de cette roadmap
+
+### Pourquoi c'est important :
+Les certifications Red Hat sont les seules validées par un examen 100% pratique — impossible de tricher. Elles sont le signal le plus fort qu'un recruteur peut recevoir d'un candidat Linux.
+
+---
+
+## MODULE 35 — Windows Server & Active Directory
+
+> Beaucoup d'environnements enterprise sont mixtes Linux/Windows. Un senior engineer doit gérer les deux.
+
+### Ce que tu vas apprendre :
+- **Windows Server** : installation, rôles, fonctionnalités, PowerShell de base
+- **Active Directory** : domaine, GPO, utilisateurs, groupes, OU
+- **Intégration Linux/AD** : joindre un serveur RHEL à un domaine Active Directory (SSSD, realm)
+- **PowerShell** : scripts d'administration, comparaison avec Bash
+- **RDP & WinRM** : accès distant sécurisé aux serveurs Windows
+- **DNS Windows** : intégration DNS/AD, zones de recherche directe/inverse
+- **Monitoring Windows** : WMI exporter pour Prometheus, intégration Grafana
+
+### Pourquoi c'est important :
+90% des offres d'emploi senior mentionnent "Linux and/or Windows". Dans les PME, l'administrateur système gère les deux. Refuser Windows, c'est se fermer la moitié du marché.
+
+---
+
+## MODULE 36 — Message Queues & Event Streaming
+
+> La communication asynchrone entre services — le backbone des architectures modernes.
+
+### Ce que tu vas apprendre :
+- **Concepts** : producteur/consommateur, queue vs topic, at-least-once vs exactly-once
+- **RabbitMQ** : installation, exchanges, queues, bindings, management UI
+- **Apache Kafka** : architecture distribuée, partitions, consumer groups, retention
+- **Cas d'usage** : découplage de services, traitement de logs en temps réel, event sourcing
+- **Monitoring** : métriques RabbitMQ et Kafka dans Prometheus/Grafana
+- **Intégration** : connecter Logstash à Kafka, connecter une app PHP à RabbitMQ
+
+### Pourquoi c'est important :
+Les architectures microservices et event-driven sont omniprésentes. Un sysadmin qui ne sait pas opérer RabbitMQ ou Kafka est bloqué sur les architectures monolithiques.
+
+---
+
+## MODULE 37 — OpenStack & Cloud Privé
+
+> Construire son propre cloud privé — ce que font les hébergeurs et les grandes entreprises.
+
+### Ce que tu vas apprendre :
+- **Architecture OpenStack** : Nova (compute), Neutron (réseau), Cinder (stockage), Keystone (auth), Glance (images)
+- **Installation** : DevStack pour le lab, Packstack pour RHEL
+- **Gestion des VMs** : créer, démarrer, arrêter, migrer des instances via Horizon ou CLI
+- **Réseau OpenStack** : tenant networks, floating IPs, security groups
+- **Lien avec KVM** : OpenStack utilise KVM comme hyperviseur — module 26 est le prérequis
+- **Comparaison** : OpenStack vs VMware vSphere vs Proxmox
+
+### Pourquoi c'est important :
+Les télécoms, banques et administrations publiques utilisent OpenStack pour leurs clouds privés. C'est un différenciateur fort sur le marché du travail enterprise.
+
+---
+
+## MODULE 38 — Soft Skills & Carrière
+
+> Les compétences techniques ouvrent la porte. Les soft skills déterminent jusqu'où tu vas.
+
+### Ce que tu vas apprendre :
+
+#### Communication technique
+- **Rédiger une documentation** : structure, public cible, exemples concrets, maintenance
+- **Runbooks professionnels** : procédures claires que n'importe qui peut suivre en urgence
+- **Rapports d'incident** : timeline, cause racine, actions correctives — format post-mortem
+- **Communication en crise** : tenir les parties prenantes informées sans paniquer
+
+#### Travail en équipe
+- **Code review** : donner et recevoir du feedback constructif sur des scripts/configs
+- **Mentoring** : expliquer des concepts techniques à des juniors
+- **Estimation** : évaluer le temps et la complexité d'une tâche avec précision
+- **Gestion des priorités** : urgence vs importance, dire non avec des arguments
+
+#### Entretiens techniques
+- **Questions types Senior SysEng** : "Comment diagnostiques-tu un serveur lent ?", "Décris une architecture HA"
+- **Live troubleshooting** : résoudre un problème en temps réel face à un recruteur
+- **Présenter son portfolio** : valoriser syseng-journey en entretien
+- **Négociation salariale** : connaître sa valeur, argumenter avec des données
+
+### Pourquoi c'est important :
+Les job boards indiquent systématiquement "strong communication skills" et "ability to mentor junior engineers" dans les postes senior. La technique seule ne suffit pas pour passer senior et y rester.
+
+---
+
 ## Résumé de progression
 
-| Module | Statut | Compétences clés |
-|---|---|---|
+| # | Module | Statut | Compétences clés |
+|---|--------|--------|-----------------|
 | 01 | Linux Fundamentals | ✅ | users, permissions, systemd, logs, réseau |
 | 02 | Nginx | ✅ | install, vhost, SELinux, HTTPS, logs |
 | 03 | MariaDB | ✅ | install, SQL, backup, Bash, cron |
@@ -586,7 +732,7 @@ De plus en plus d'entreprises sont soumises à des audits de sécurité. Un ing�
 | 22 | Redis & Caching | ⬜ | cache, Sentinel, Cluster, monitoring |
 | 23 | PostgreSQL | ⬜ | SQL avancé, réplication, PgBouncer |
 | 24 | Stockage avancé | ⬜ | NFS, Samba, MinIO, RAID, quotas |
-| 25 | Base de données HA avancée | ⬜ | Galera, ProxySQL, XtraBackup |
+| 25 | BDD HA avancée | ⬜ | Galera, ProxySQL, XtraBackup |
 | 26 | Virtualisation KVM | ⬜ | libvirt, virsh, cloud-init, migration |
 | 27 | HashiCorp Vault | ⬜ | secrets, PKI, credentials dynamiques |
 | 28 | GitOps (ArgoCD/Flux) | ⬜ | déploiement déclaratif, drift detection |
@@ -594,3 +740,18 @@ De plus en plus d'entreprises sont soumises à des audits de sécurité. Un ing�
 | 30 | Cloud AWS/GCP | ⬜ | EC2, S3, IAM, VPC, Terraform+Cloud |
 | 31 | SRE & Fiabilité | ⬜ | SLI/SLO, error budget, chaos, on-call |
 | 32 | Compliance & Audit | ⬜ | CIS, OpenSCAP, auditd, GDPR, patches |
+| 33 | C & Kernel Linux | ⬜ | pointeurs, syscalls, modules kernel, eBPF |
+| 34 | Certifications | ⬜ | RHCSA → RHCE → CKA → AWS SAA |
+| 35 | Windows Server & AD | ⬜ | Active Directory, PowerShell, intégration Linux |
+| 36 | Message Queues | ⬜ | RabbitMQ, Kafka, event streaming |
+| 37 | OpenStack & Cloud Privé | ⬜ | Nova, Neutron, Cinder, Horizon |
+| 38 | Soft Skills & Carrière | ⬜ | communication, entretiens, mentoring, négociation |
+
+---
+
+## Sources — Job Market Research (Juin 2026)
+
+- [Senior Systems Engineer Job Description — Indeed](https://www.indeed.com/hire/job-description/senior-systems-engineer)
+- [Senior Linux Systems Engineer Role Blueprint — DevOps School](https://www.devopsschool.com/blog/senior-linux-systems-engineer-role-blueprint-responsibilities-skills-kpis-and-career-path/)
+- [Red Hat Certifications 2026 — Electromech Cloud](https://electromech.cloud/red-hat-certification-changes-2026/)
+- [Best Linux Certifications 2026 — LinuxTeck](https://www.linuxteck.com/best-linux-certifications-2026/)
