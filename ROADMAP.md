@@ -714,8 +714,8 @@ Les job boards indiquent systématiquement "strong communication skills" et "abi
 | 04 | Monitoring | ✅ | Prometheus, Grafana, Node Exporter |
 | 05 | Bash avancé | ⏸ | fonctions, parsing, args, déploiement |
 | 06 | Linux Internals | ✅ | LVM, mémoire, processus, kernel |
-| 07 | Haute disponibilité | ⬜ | load balancing, replication, failover |
-| 08 | Ansible | ⬜ | playbooks, roles, IaC |
+| 07 | Haute disponibilité | 🔄 | load balancing ✅, replication ✅, Keepalived ⏸ |
+| 08 | Ansible | 🔄 | roles ✅, idempotence ✅, variables/handlers/Vault ⏸ |
 | 09 | Sécurité système | ⬜ | hardening, Fail2ban, Let's Encrypt |
 | 10 | Gestion d'incidents | ⬜ | diagnostic, post-mortem, runbooks |
 | 11 | Docker | ⬜ | conteneurs, compose, sécurité |
