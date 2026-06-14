@@ -44,7 +44,7 @@ Junior Systems Administrator
 
 ---
 
-### MODULE 03 — Bash scripting
+### MODULE 03 — Bash scripting ✅ COMPLÉTÉ
 
 > Automatiser les tâches répétitives — un Junior qui scripte vaut deux.
 
@@ -123,7 +123,7 @@ toute une infrastructure et personne ne sait pourquoi.
 
 ---
 
-### MODULE 08 — PHP-FPM — Stack LEMP complète
+### MODULE 08 — PHP-FPM — Stack LEMP complète ✅ COMPLÉTÉ
 
 > Faire tourner une vraie application web — WordPress, Laravel.
 
@@ -385,12 +385,12 @@ Pas besoin d'être expert — connaître les concepts suffit au niveau Junior.
 |---|--------|--------|-----------------|
 | 01 | Linux Fundamentals | ✅ | users, permissions, systemd, logs |
 | 02 | Linux System avancé | ✅ | LVM, mémoire, processus, performance |
-| 03 | Bash Scripting | ⬜ | variables, boucles, fonctions, cron |
+| 03 | Bash Scripting | ✅ | variables, boucles, fonctions, cron |
 | 04 | Réseau Fondamental | ⬜ | IP, DNS, DHCP, TCP, troubleshooting |
 | 05 | DNS & DHCP | ⬜ | BIND, Unbound, enregistrements |
 | 06 | Nginx | ✅ | vhost, SSL, reverse proxy |
 | 07 | MariaDB | ✅ | SQL, backup, scripting |
-| 08 | PHP-FPM / LEMP | ⬜ | WordPress, PHP-FPM, OpCache |
+| 08 | PHP-FPM / LEMP | ✅ | WordPress, PHP-FPM, OpCache |
 | 09 | Monitoring | ✅ | Prometheus, Grafana, alertes |
 | 10 | Logs centralisés | ⬜ | rsyslog, Loki, logrotate |
 | 11 | Sécurité système | 🔄 | SSH, Fail2ban, SELinux, auditd |

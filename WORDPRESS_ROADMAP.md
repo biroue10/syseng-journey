@@ -19,7 +19,7 @@ Ce roadmap te donne cette expérience.
 
 ## PHASE 1 — Déploiement et configuration
 
-### PROJET WP-01 — wordpress-deployer ⬜
+### PROJET WP-01 — wordpress-deployer ✅
 > Installer WordPress automatiquement avec un script Bash
 
 - PHP-FPM : installation, configuration des pools, socket Unix
@@ -32,7 +32,7 @@ Ce roadmap te donne cette expérience.
 
 ---
 
-### PROJET WP-02 — wp-cli-toolkit ⬜
+### PROJET WP-02 — wp-cli-toolkit ✅
 > Gérer WordPress depuis la ligne de commande avec WP-CLI
 
 - Installer WP-CLI sur RHEL
@@ -244,8 +244,8 @@ Scénarios réels à reproduire et résoudre :
 
 | # | Projet | Phase | Statut |
 |---|--------|-------|--------|
-| WP-01 | wordpress-deployer | Déploiement | ⬜ |
-| WP-02 | wp-cli-toolkit | Déploiement | ⬜ |
+| WP-01 | wordpress-deployer | Déploiement | ✅ |
+| WP-02 | wp-cli-toolkit | Déploiement | ✅ |
 | WP-03 | wordpress-multisite | Déploiement | ⬜ |
 | WP-04 | wordpress-hardening | Sécurité | ⬜ |
 | WP-05 | wordpress-backup | Sécurité | ⬜ |
