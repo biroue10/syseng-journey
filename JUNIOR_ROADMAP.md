@@ -353,6 +353,187 @@ Pas besoin d'être expert — connaître les concepts suffit au niveau Junior.
 
 ---
 
+## CI/CD & INFRASTRUCTURE AS CODE — Les outils modernes
+
+### MODULE 22 — CI/CD (GitHub Actions / GitLab CI)
+
+> Automatiser les tests et déploiements — compétence devenue incontournable en 2026.
+
+**Ce que tu vas apprendre :**
+- Concepts CI/CD : pipeline, stage, job, artifact, runner
+- GitHub Actions : workflow YAML, triggers, jobs, steps
+- Tester automatiquement un script Bash à chaque push
+- Déployer automatiquement sur ton serveur RHEL via SSH
+- Notifications en cas d'échec de pipeline
+- GitLab CI : `.gitlab-ci.yml`, runners, stages
+
+**Projet :** Pipeline GitHub Actions qui teste et déploie un script sur ton serveur RHEL automatiquement
+
+**Pourquoi c'est important :**
+CI/CD apparaît dans la quasi-totalité des offres Junior en 2026. Ton blog utilise déjà GitHub Actions sans que tu l'aies configuré toi-même — il est temps de comprendre et maîtriser ce mécanisme.
+
+---
+
+### MODULE 23 — Python pour SysAdmin
+
+> Le deuxième langage incontournable après Bash — de plus en plus exigé.
+
+**Ce que tu vas apprendre :**
+- Syntaxe Python : variables, conditions, boucles, fonctions
+- Fichiers : lire, écrire, parser (JSON, YAML, CSV)
+- Modules utiles : `os`, `subprocess`, `paramiko` (SSH), `requests` (HTTP)
+- Réécrire un script Bash en Python : comparer les deux approches
+- Automatisation : interagir avec des APIs REST depuis Python
+- Gestion d'erreurs : try/except
+
+**Projet :** Script Python de health check qui interroge l'API Prometheus et envoie une alerte si un service est down
+
+**Pourquoi c'est important :**
+Bash est parfait pour les tâches système simples. Python est requis dès que la logique devient complexe — parsing de JSON, appels API, manipulation de données. La plupart des outils DevOps modernes (Ansible, Terraform) s'intègrent via Python.
+
+---
+
+### MODULE 24 — Kubernetes Basics
+
+> L'orchestrateur de conteneurs standard — présent dans toutes les offres DevOps/SysAdmin modernes.
+
+**Ce que tu vas apprendre :**
+- Architecture Kubernetes : cluster, node, pod, service, deployment
+- kubectl : commandes essentielles (get, describe, logs, exec, apply)
+- Manifests YAML : décrire un déploiement et un service
+- Namespaces : isoler les environnements
+- ConfigMaps et Secrets : gérer la configuration
+- Différence entre Docker Compose (local) et Kubernetes (production)
+- Minikube : cluster Kubernetes local pour pratiquer
+
+**Projet :** Déployer WordPress + MariaDB sur Minikube avec des manifests YAML
+
+**Pourquoi c'est important :**
+Docker sans Kubernetes c'est comme savoir construire une voiture mais ne pas savoir conduire sur autoroute. Kubernetes est le standard de déploiement en production — même les offres Junior commencent à le mentionner.
+
+---
+
+### MODULE 25 — Terraform (Infrastructure as Code)
+
+> Décrire l'infrastructure comme du code — reproductible, versionné, auditable.
+
+**Ce que tu vas apprendre :**
+- Concepts IaC : idempotence, état (state), plan vs apply
+- HCL : syntaxe Terraform (resources, variables, outputs, modules)
+- Provider AWS : créer une EC2, un VPC, un Security Group en code
+- `terraform init`, `plan`, `apply`, `destroy`
+- State : comprendre le fichier `.tfstate`
+- Modules : réutiliser du code Terraform
+- Versionner l'infrastructure avec Git
+
+**Projet :** Provisionner un serveur RHEL sur AWS avec Terraform — VPC, Security Group, EC2, Elastic IP
+
+**Pourquoi c'est important :**
+Les entreprises ne créent plus d'infrastructure à la main. Terraform est l'outil IaC le plus demandé en 2026. Même un Junior qui connaît Terraform de base se distingue fortement des autres candidats.
+
+---
+
+## RÉSEAU AVANCÉ & SÉCURITÉ — Compétences manquantes très demandées
+
+### MODULE 26 — VPN & Réseau Avancé
+
+> WireGuard et OpenVPN apparaissent dans de nombreuses offres Junior en 2026.
+
+**Ce que tu vas apprendre :**
+- VPN : concepts (tunnel, chiffrement, authentification)
+- WireGuard : configuration serveur et client, clés publiques/privées
+- OpenVPN : configuration avec certificats, MFA
+- iptables : règles de filtrage avancées, NAT, MASQUERADE
+- Analyse réseau : tcpdump, Wireshark (captures de base)
+- NFS : partager des dossiers entre serveurs Linux
+- SMB/CIFS : partage de fichiers avec Windows (Samba)
+
+**Projet :** Serveur WireGuard VPN sur RHEL + partage NFS entre deux machines
+
+**Pourquoi c'est important :**
+Les entreprises utilisent des VPN pour connecter les télé-travailleurs et les sites distants. NFS/SMB sont les protocoles de partage de fichiers standard en entreprise.
+
+---
+
+### MODULE 27 — ITIL & Gestion des Incidents
+
+> Très demandé dans les offres françaises — surtout les ESN (ex-SSII).
+
+**Ce que tu vas apprendre :**
+- ITIL v4 : framework de gestion des services IT
+- Incident vs Problem vs Change : les 3 processus clés
+- Ticketing : GLPI (open source, standard français), ServiceNow (enterprise)
+- SLA : définir et respecter les niveaux de service
+- Escalade : quand et comment escalader un incident
+- Post-mortem : rédiger un rapport d'incident structuré
+- CMDB : inventaire des actifs IT
+
+**Projet :** Installer et configurer GLPI sur RHEL — créer des tickets, gérer des assets, configurer des SLA
+
+**Pourquoi c'est important :**
+En France, les offres d'administrateur système mentionnent ITIL et GLPI/ServiceNow dans 60%+ des cas. Sans ces notions, tu rates un filtre automatique ATS.
+
+---
+
+### MODULE 28 — Microsoft Azure
+
+> Plus demandé qu'AWS en Europe et France spécifiquement.
+
+**Ce que tu vas apprendre :**
+- Azure vs AWS : différences, équivalences de services
+- Azure Core : Virtual Machines, Storage Account, Virtual Network, NSG
+- Azure Active Directory : gestion des identités cloud
+- Azure CLI : gérer les ressources depuis le terminal
+- Microsoft 365 : bases de l'administration (Exchange, Teams, SharePoint)
+- Intune : gestion des postes de travail (MDM)
+- Certification AZ-104 : Azure Administrator Associate
+
+**Projet :** Déployer une VM RHEL sur Azure avec Azure CLI + configurer les règles réseau
+
+**Pourquoi c'est important :**
+En France et en Europe, Azure domine le marché enterprise (Microsoft 365 est omniprésent). Les offres Junior mentionnent Azure 2x plus souvent qu'AWS dans le secteur privé français.
+
+---
+
+### MODULE 29 — PowerShell pour SysAdmin
+
+> Incontournable dans les environnements mixtes Linux/Windows.
+
+**Ce que tu vas apprendre :**
+- Syntaxe PowerShell : cmdlets, pipeline, variables, boucles, fonctions
+- Gestion Active Directory via PowerShell : créer/modifier/supprimer des users en masse
+- Gestion Microsoft 365 via PowerShell (Exchange Online, Azure AD)
+- Scripts d'administration : rapports, exports CSV, automatisation de tâches Windows
+- Comparaison Bash vs PowerShell : même logique, syntaxe différente
+- PowerShell remoting : exécuter des commandes sur des machines distantes
+
+**Projet :** Script PowerShell de création en masse d'utilisateurs Active Directory depuis un fichier CSV
+
+**Pourquoi c'est important :**
+90% des entreprises ont un Active Directory. Un Junior Linux qui peut aussi scripter en PowerShell est immédiatement plus utile dans un environnement mixte.
+
+---
+
+### MODULE 30 — Stockage & NAS
+
+> Compétence pratique demandée dans les offres de gestion d'infrastructure.
+
+**Ce que tu vas apprendre :**
+- RAID : niveaux 0, 1, 5, 10 — avantages et cas d'usage
+- LVM avancé : thin provisioning, snapshots, VGs multiples
+- NAS : protocoles NFS v3/v4, SMB/CIFS, gestion des permissions
+- Samba : configurer un partage Samba sur RHEL accessible depuis Windows
+- iSCSI : stockage bloc en réseau
+- S.M.A.R.T. : surveiller la santé des disques
+- Quotas : limiter l'espace disque par utilisateur/groupe
+
+**Projet :** Serveur NAS RHEL avec partages NFS (Linux) et Samba (Windows) + monitoring S.M.A.R.T.
+
+**Pourquoi c'est important :**
+La gestion du stockage est une tâche quotidienne en entreprise. Disque plein = service down. Connaître RAID, LVM et les protocoles de partage est attendu dès le niveau Junior.
+
+---
+
 ## CERTIFICATION — Valider les compétences
 
 ### MODULE 21 — RHCSA (Red Hat Certified System Administrator)
@@ -376,6 +557,31 @@ Pas besoin d'être expert — connaître les concepts suffit au niveau Junior.
 - Salaire moyen +15-20% vs sans certification
 - Signal fort pour les recruteurs : exam pratique, impossible de tricher
 - Requis ou fortement apprécié dans les offres Linux enterprise
+
+---
+
+### MODULE 31 — CompTIA Network+ & Security+
+
+> Les deux certifications les plus demandées par les employeurs en 2026 après RHCSA.
+
+**CompTIA Network+ (N10-009)**
+- Modèle OSI, TCP/IP, subnetting
+- Protocoles réseau : DNS, DHCP, HTTP, SMTP, FTP, SSH
+- Topologies réseau, VLANs, routage
+- Dépannage réseau : méthodologie, outils
+- Sécurité réseau : firewalls, VPN, IDS/IPS
+
+**CompTIA Security+ (SY0-701)**
+- Menaces et attaques : malware, phishing, ransomware, SQL injection
+- Cryptographie : chiffrement symétrique/asymétrique, PKI, certificats TLS
+- Gestion des identités : MFA, SSO, OAuth, LDAP
+- Sécurité réseau : segmentation, DMZ, honeypot
+- Réponse aux incidents : forensics, logs, SIEM
+
+**Valeur marché :**
+- Security+ est demandé dans ~40% des offres Junior SysAdmin en 2026
+- Network+ valide les bases réseau — complémentaire au Module 04
+- Reconnues mondialement, contrairement à des certifications vendeur
 
 ---
 
@@ -404,6 +610,16 @@ Pas besoin d'être expert — connaître les concepts suffit au niveau Junior.
 | 19 | Virtualisation KVM | ⬜ | VMs, virsh, snapshots, migration |
 | 20 | Cloud AWS | ⬜ | EC2, S3, IAM, VPC, notions cloud |
 | 21 | RHCSA | ⬜ | certification pratique Red Hat |
+| 22 | CI/CD | ⬜ | GitHub Actions, GitLab CI, pipelines, déploiement automatique |
+| 23 | Python SysAdmin | ⬜ | scripts Python, APIs, paramiko, subprocess |
+| 24 | Kubernetes Basics | ⬜ | pods, deployments, kubectl, Minikube |
+| 25 | Terraform | ⬜ | IaC, HCL, AWS provider, state |
+| 26 | VPN & Réseau Avancé | ⬜ | WireGuard, OpenVPN, iptables, NFS, SMB |
+| 27 | ITIL & Ticketing | ⬜ | GLPI, ServiceNow, incidents, SLA, CMDB |
+| 28 | Microsoft Azure | ⬜ | VMs, Azure AD, CLI, Microsoft 365, AZ-104 |
+| 29 | PowerShell | ⬜ | cmdlets, Active Directory, Microsoft 365, remoting |
+| 30 | Stockage & NAS | ⬜ | RAID, NFS, Samba, iSCSI, S.M.A.R.T., quotas |
+| 31 | CompTIA Network+ & Security+ | ⬜ | certifications réseau et sécurité reconnues mondialement |
 
 **Légende :** ✅ Complété · 🔄 En cours · ⬜ À faire
 
@@ -430,10 +646,14 @@ Un recruteur cherche ces signaux :
 | Tu pratiques sur un vrai serveur | Ton blog + GitHub |
 | Tu documentes ce que tu fais | syseng-journey |
 | Tu comprends les bases réseau | Module 04 |
-| Tu scriptes en Bash | Module 03 |
-| Tu connais Docker | Module 15 |
+| Tu scriptes en Bash et Python | Modules 03 + 23 |
+| Tu connais Docker et Kubernetes | Modules 15 + 24 |
+| Tu fais du CI/CD | Module 22 |
 | Tu gères les incidents | Module 17 |
+| Tu fais de l'IaC avec Terraform | Module 25 |
 | Tu as une certification | RHCSA |
 
 Tu n'as pas besoin de tout finir pour postuler —
-**Modules 01-04 + 06-07 + 11 + 13 + 14 + certification RHCSA** suffisent pour la plupart des offres Junior.
+**Modules 01-04 + 06-07 + 11 + 13 + 14 + 15 + 22 + certification RHCSA** suffisent pour la plupart des offres Junior en 2026.
+
+**Pour les offres françaises (ESN/DSI) ajouter :** Module 27 (ITIL/GLPI) + Module 28 (Azure) + Module 29 (PowerShell).
