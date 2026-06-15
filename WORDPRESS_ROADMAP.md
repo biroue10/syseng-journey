@@ -62,7 +62,7 @@ Ce roadmap te donne cette expérience.
 
 ## PHASE 2 — Sécurité WordPress
 
-### PROJET WP-04 — wordpress-hardening ⬜
+### PROJET WP-04 — wordpress-hardening ✅
 > Sécuriser WordPress selon les bonnes pratiques
 
 - Permissions de fichiers : wp-content, wp-config.php, uploads
@@ -247,7 +247,7 @@ Scénarios réels à reproduire et résoudre :
 | WP-01 | wordpress-deployer | Déploiement | ✅ |
 | WP-02 | wp-cli-toolkit | Déploiement | ✅ |
 | WP-03 | wordpress-multisite | Déploiement | ✅ |
-| WP-04 | wordpress-hardening | Sécurité | ⬜ |
+| WP-04 | wordpress-hardening | Sécurité | ✅ |
 | WP-05 | wordpress-backup | Sécurité | ⬜ |
 | WP-06 | wordpress-performance | Performance | ⬜ |
 | WP-07 | wordpress-ssl | Performance | ⬜ |
