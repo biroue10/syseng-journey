@@ -560,6 +560,126 @@ La gestion du stockage est une tâche quotidienne en entreprise. Disque plein = 
 
 ---
 
+### MODULE 32 — HAProxy & Haute Disponibilité
+
+> Le load balancer open source le plus utilisé en production Linux.
+
+**Ce que tu vas apprendre :**
+- HAProxy : concepts frontend/backend, algorithmes de load balancing (round-robin, least-conn, ip-hash)
+- Health checks : détecter et exclure automatiquement un serveur down
+- SSL termination : déchiffrer HTTPS au niveau du load balancer
+- ACLs HAProxy : router le trafic selon l'URL, le host header, les IPs
+- Stats page : monitorer les connexions en temps réel
+- Keepalived : VIP (Virtual IP) pour la haute disponibilité du load balancer lui-même
+- Pacemaker/Corosync : cluster HA pour les services critiques
+
+**Projet :** HAProxy + 2 serveurs Nginx en backend + Keepalived pour VIP — zéro interruption si un serveur tombe
+
+**Pourquoi c'est important :**
+En production, aucun service critique ne tourne sur un seul serveur. HAProxy est le standard open source pour distribuer le trafic. Connaître la HA est ce qui distingue un Junior prêt pour la prod.
+
+---
+
+### MODULE 33 — PKI & Gestion des Certificats
+
+> OpenSSL, Let's Encrypt, et la chaîne de confiance SSL/TLS.
+
+**Ce que tu vas apprendre :**
+- PKI : Public Key Infrastructure, autorités de certification (CA), chaîne de confiance
+- OpenSSL : générer des clés, créer des CSR, signer des certificats, inspecter des certs
+- Certificats auto-signés : créer une CA interne pour les services internes
+- Let's Encrypt : automatiser le renouvellement avec Certbot (cron + hook)
+- Wildcard certificates : couvrir tous les sous-domaines
+- Troubleshooting TLS : certificat expiré, chaîne incomplète, CN mismatch
+- HSTS : Strict Transport Security
+
+**Projet :** CA interne avec OpenSSL + certificats pour tous les services internes + Let's Encrypt sur le site public
+
+**Pourquoi c'est important :**
+Les certificats expirés causent des incidents en production. Un Junior qui sait gérer le cycle de vie des certs (création → déploiement → renouvellement automatique) est immédiatement opérationnel.
+
+---
+
+### MODULE 34 — Serveur Email (Postfix)
+
+> Le service que toute infrastructure doit avoir — et que beaucoup de juniors ne maîtrisent pas.
+
+**Ce que tu vas apprendre :**
+- Architecture email : MTA (Postfix), MDA (Dovecot), MUA (client)
+- Postfix : installation, configuration SMTP, relais, alias
+- DNS email : enregistrements MX, SPF, DKIM, DMARC
+- OpenDKIM : signer les emails pour éviter le spam
+- TLS : chiffrement des connexions SMTP
+- Logs email : `/var/log/maillog` — diagnostiquer un email non reçu
+- Monitoring : alertes Prometheus sur la file de mails
+
+**Projet :** Serveur mail Postfix sur RHEL avec SPF/DKIM/DMARC + monitoring de la file
+
+**Pourquoi c'est important :**
+Chaque application serveur envoie des emails (alertes, confirmations, notifications). Savoir configurer et déboguer Postfix est une compétence quotidienne en entreprise.
+
+---
+
+### MODULE 35 — Vulnerability Scanning & Patch Management
+
+> Identifier et corriger les failles avant qu'elles soient exploitées.
+
+**Ce que tu vas apprendre :**
+- Vulnerability scanning : concepts, CVE, CVSS scores
+- OpenVAS/Greenbone : scanner open source, lancer un scan, interpréter les résultats
+- Patch management Linux : `dnf check-update`, `dnf update`, automatisation
+- WSUS : gestion des patches Windows en entreprise
+- OpenSCAP : audit de conformité RHEL (CIS Benchmark, STIG)
+- Suivi des CVEs : abonnement aux bulletins de sécurité RHEL/Nginx/PHP
+- Remédiation : prioriser et corriger les vulnérabilités critiques
+
+**Projet :** Scan OpenVAS complet du serveur RHEL + rapport de remédiation + automatisation des patches via Ansible
+
+**Pourquoi c'est important :**
+La gestion des vulnérabilités est une responsabilité quotidienne en entreprise. Un Junior qui sait scanner, prioriser et corriger les failles est un atout sécurité immédiat.
+
+---
+
+### MODULE 36 — FreeIPA & LDAP
+
+> Gestion centralisée des identités pour les environnements Linux enterprise.
+
+**Ce que tu vas apprendre :**
+- LDAP : protocole d'annuaire, arborescence DIT, entrées, attributs, schéma
+- FreeIPA : solution intégrée LDAP + Kerberos + DNS + CA pour Linux
+- Kerberos : authentification réseau par tickets (SSO pour Linux)
+- Joindre un serveur RHEL à FreeIPA : `ipa-client-install`
+- Gérer les utilisateurs et groupes centralement
+- Sudo rules : définir qui peut exécuter quoi sur quels serveurs via FreeIPA
+- HBAC (Host-Based Access Control) : qui peut se connecter où
+
+**Projet :** Serveur FreeIPA + 2 clients RHEL joints au domaine + règles sudo centralisées
+
+**Pourquoi c'est important :**
+Dans les entreprises avec 10+ serveurs Linux, gérer les utilisateurs manuellement sur chaque machine est impossible. FreeIPA est l'équivalent Linux d'Active Directory.
+
+---
+
+### MODULE 37 — Performance Tuning Linux
+
+> Optimiser le système d'exploitation pour les charges de travail production.
+
+**Ce que tu vas apprendre :**
+- sysctl : paramètres kernel — réseau (net.core, tcp), mémoire (vm.swappiness), fichiers (fs.file-max)
+- tuned : profils de performance automatiques (throughput-performance, latency-performance)
+- CPU : gouverneurs de fréquence, NUMA, isolcpus
+- Mémoire : huge pages, OOM killer tuning, transparent huge pages
+- I/O : schedulers de disque (deadline, noop, cfq), iostat, fio benchmarks
+- Réseau : buffer sizes, TCP window scaling, offloading
+- Profiling : perf, sar, iotop — identifier les goulots d'étranglement
+
+**Projet :** Audit de performance complet du serveur RHEL + rapport avant/après tuning avec métriques
+
+**Pourquoi c'est important :**
+Un Junior qui peut diagnostiquer un serveur lent (CPU saturé ? RAM insuffisante ? I/O bloquant ?) et l'optimiser sans ajouter du hardware est immédiatement précieux en production.
+
+---
+
 ### MODULE 31 — CompTIA Network+ & Security+
 
 > Les deux certifications les plus demandées par les employeurs en 2026 après RHCSA.
@@ -620,6 +740,12 @@ La gestion du stockage est une tâche quotidienne en entreprise. Disque plein = 
 | 29 | PowerShell | ⬜ | cmdlets, Active Directory, Microsoft 365, remoting |
 | 30 | Stockage & NAS | ⬜ | RAID, NFS, Samba, iSCSI, S.M.A.R.T., quotas |
 | 31 | CompTIA Network+ & Security+ | ⬜ | certifications réseau et sécurité reconnues mondialement |
+| 32 | HAProxy & Haute Disponibilité | ⬜ | load balancing, health checks, Keepalived, VIP, Pacemaker |
+| 33 | PKI & Certificats | ⬜ | OpenSSL, CA interne, Let's Encrypt, wildcard, TLS troubleshooting |
+| 34 | Serveur Email Postfix | ⬜ | SMTP, SPF, DKIM, DMARC, TLS, logs mail |
+| 35 | Vulnerability Scanning | ⬜ | OpenVAS, patch management, WSUS, OpenSCAP, CVE |
+| 36 | FreeIPA & LDAP | ⬜ | annuaire LDAP, Kerberos, SSO Linux, sudo centralisé, HBAC |
+| 37 | Performance Tuning | ⬜ | sysctl, tuned, CPU/RAM/I/O, profiling, benchmarks |
 
 **Légende :** ✅ Complété · 🔄 En cours · ⬜ À faire
 
