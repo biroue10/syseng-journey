@@ -47,7 +47,7 @@ Ce roadmap te donne cette expérience.
 
 ---
 
-### PROJET WP-03 — wordpress-multisite ⬜
+### PROJET WP-03 — wordpress-multisite ✅
 > Héberger plusieurs sites WordPress sur une seule installation
 
 - Activer WordPress Multisite (subdomain vs subdirectory)
@@ -246,7 +246,7 @@ Scénarios réels à reproduire et résoudre :
 |---|--------|-------|--------|
 | WP-01 | wordpress-deployer | Déploiement | ✅ |
 | WP-02 | wp-cli-toolkit | Déploiement | ✅ |
-| WP-03 | wordpress-multisite | Déploiement | ⬜ |
+| WP-03 | wordpress-multisite | Déploiement | ✅ |
 | WP-04 | wordpress-hardening | Sécurité | ⬜ |
 | WP-05 | wordpress-backup | Sécurité | ⬜ |
 | WP-06 | wordpress-performance | Performance | ⬜ |
