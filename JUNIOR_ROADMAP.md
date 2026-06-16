@@ -67,7 +67,7 @@ que tu penses comme un ingénieur, pas comme un opérateur.
 
 ## RÉSEAU — Comprendre ce qui se passe sur le fil
 
-### MODULE 04 — Réseau fondamental
+### MODULE 04 — Réseau fondamental ✅ COMPLÉTÉ
 
 > 80% des incidents ont une composante réseau. Sans ça, tu es aveugle.
 
@@ -712,7 +712,7 @@ Un Junior qui peut diagnostiquer un serveur lent (CPU saturé ? RAM insuffisante
 | 01 | Linux Fundamentals | ✅ | users, permissions, systemd, logs |
 | 02 | Linux System avancé | ✅ | LVM, mémoire, processus, performance |
 | 03 | Bash Scripting | ✅ | variables, boucles, fonctions, cron |
-| 04 | Réseau Fondamental | ⬜ | IP, DNS, DHCP, TCP, troubleshooting |
+| 04 | Réseau Fondamental | ✅ | IP, DNS, DHCP, TCP, firewalld, ss, tcpdump, traceroute |
 | 05 | DNS & DHCP | ⬜ | BIND, Unbound, enregistrements |
 | 06 | Nginx | ✅ | vhost, SSL, reverse proxy |
 | 07 | MariaDB | ✅ | SQL, backup, scripting |
