@@ -88,7 +88,7 @@ C'est un prérequis pour tout le reste.
 
 ---
 
-### MODULE 05 — DNS & DHCP en pratique
+### MODULE 05 — DNS & DHCP en pratique 🔄 EN COURS
 
 > Deux services que tu toucheras chaque semaine en entreprise.
 
@@ -713,7 +713,7 @@ Un Junior qui peut diagnostiquer un serveur lent (CPU saturé ? RAM insuffisante
 | 02 | Linux System avancé | ✅ | LVM, mémoire, processus, performance |
 | 03 | Bash Scripting | ✅ | variables, boucles, fonctions, cron |
 | 04 | Réseau Fondamental | ✅ | IP, DNS, DHCP, TCP, firewalld, ss, tcpdump, traceroute |
-| 05 | DNS & DHCP | ⬜ | BIND, Unbound, enregistrements |
+| 05 | DNS & DHCP | 🔄 | BIND, Unbound, enregistrements, zone lab.local |
 | 06 | Nginx | ✅ | vhost, SSL, reverse proxy |
 | 07 | MariaDB | ✅ | SQL, backup, scripting |
 | 08 | PHP-FPM / LEMP | ✅ | WordPress, PHP-FPM, OpCache |
