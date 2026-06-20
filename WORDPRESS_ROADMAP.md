@@ -174,18 +174,16 @@ Chaque projet est hands-on, public sur GitHub, avec des scénarios de troublesho
 
 ---
 
-### PROJET WC-04 — woocommerce-performance ⬜
-> Optimiser les performances d'une boutique WooCommerce
+### PROJET WC-04 — woocommerce-coupons ✅
+> Créer et tester les types de coupons WooCommerce
 
-- WooCommerce est plus lourd que WordPress seul — comprendre pourquoi
-- Désactiver les fonctionnalités WooCommerce inutilisées
-- Cache : configurer les exceptions de cache pour cart/checkout
-- Base de données : nettoyer les tables WooCommerce (sessions, logs, transients)
-- Index MySQL : ajouter des index pour les requêtes WooCommerce fréquentes
-- Lazy loading des scripts WooCommerce
-- Mesurer : temps de chargement shop, product, checkout
+- Coupon réduction fixe (BIROUE20 — 20 MAD)
+- Coupon pourcentage (BIROUE10 — 10%)
+- Coupon livraison gratuite (FREESHIP)
+- Test en conditions réelles : application au panier
+- Vérification WP-CLI : `wp post list --post_type=shop_coupon`
 
-**Livrable :** Guide d'optimisation WooCommerce avec métriques avant/après
+**Livrable :** 3 coupons fonctionnels, blog post publié
 
 ---
 
@@ -1233,7 +1231,7 @@ Les compétences techniques ne suffisent pas — la façon de les communiquer es
 | WC-01 | woocommerce-setup | WooCommerce | ✅ |
 | WC-02 | woocommerce-products | WooCommerce | ✅ |
 | WC-03 | woocommerce-orders | WooCommerce | ✅ |
-| WC-04 | woocommerce-performance | WooCommerce | ⬜ |
+| WC-04 | woocommerce-coupons | WooCommerce | ✅ |
 | WC-05 | woocommerce-troubleshooting | WooCommerce | ⬜ |
 | WP-08 | wordpress-monitoring | Production | ⬜ |
 | WP-09 | wordpress-docker | Production | ⬜ |
