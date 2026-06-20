@@ -131,7 +131,7 @@ Chaque projet est hands-on, public sur GitHub, avec des scénarios de troublesho
 
 ## PHASE 4 — WooCommerce
 
-### PROJET WC-01 — woocommerce-setup ⬜
+### PROJET WC-01 — woocommerce-setup ✅
 > Installer et configurer WooCommerce de A à Z
 
 - Installer WooCommerce via WP-CLI
@@ -146,7 +146,7 @@ Chaque projet est hands-on, public sur GitHub, avec des scénarios de troublesho
 
 ---
 
-### PROJET WC-02 — woocommerce-products ⬜
+### PROJET WC-02 — woocommerce-products ✅
 > Import et gestion de produits en masse
 
 - Format d'import CSV WooCommerce : colonnes requises
@@ -161,8 +161,8 @@ Chaque projet est hands-on, public sur GitHub, avec des scénarios de troublesho
 
 ---
 
-### PROJET WC-03 — woocommerce-backup ⬜
-> Backup spécifique WooCommerce : commandes, produits, clients
+### PROJET WC-03 — woocommerce-orders ✅
+> Cycle de vie d'une commande WooCommerce — test complet
 
 - Exporter les commandes WooCommerce en CSV (via WP-CLI)
 - Exporter les produits et les clients
@@ -1230,9 +1230,9 @@ Les compétences techniques ne suffisent pas — la façon de les communiquer es
 | WP-05 | wordpress-backup | Sécurité | ⬜ |
 | WP-06 | wordpress-performance | Performance | ⬜ |
 | WP-07 | wordpress-ssl | Performance | ⬜ |
-| WC-01 | woocommerce-setup | WooCommerce | ⬜ |
-| WC-02 | woocommerce-products | WooCommerce | ⬜ |
-| WC-03 | woocommerce-backup | WooCommerce | ⬜ |
+| WC-01 | woocommerce-setup | WooCommerce | ✅ |
+| WC-02 | woocommerce-products | WooCommerce | ✅ |
+| WC-03 | woocommerce-orders | WooCommerce | ✅ |
 | WC-04 | woocommerce-performance | WooCommerce | ⬜ |
 | WC-05 | woocommerce-troubleshooting | WooCommerce | ⬜ |
 | WP-08 | wordpress-monitoring | Production | ⬜ |
@@ -1275,8 +1275,436 @@ Les compétences techniques ne suffisent pas — la façon de les communiquer es
 | HE-04 | ticket-simulation-domains-dns | HE Simulations | ⬜ |
 | HE-05 | ticket-simulation-account-security | HE Simulations | ⬜ |
 | HE-06 | soft-skills-support | HE Simulations | ⬜ |
+| HE-WC-01 | paiements-stripe-paypal (7 scénarios) | WooCommerce HE | ⬜ |
+| HE-WC-02 | gestion-commandes (6 scénarios) | WooCommerce HE | ⬜ |
+| HE-WC-03 | produits-catalogue (5 scénarios) | WooCommerce HE | ⬜ |
+| HE-WC-04 | livraison-taxes (5 scénarios) | WooCommerce HE | ⬜ |
+| HE-WC-05 | checkout-panier (5 scénarios) | WooCommerce HE | ⬜ |
+| HE-WC-06 | comptes-clients (3 scénarios) | WooCommerce HE | ⬜ |
+| HE-WC-07 | abonnements (3 scénarios) | WooCommerce HE | ⬜ |
+| HE-WC-08 | performance-technique (4 scénarios) | WooCommerce HE | ⬜ |
+| HE-WC-09 | integrations-extensions (5 scénarios) | WooCommerce HE | ⬜ |
+| HE-WC-10 | wordpress-com-ecommerce (5 scénarios) | WooCommerce HE | ⬜ |
 
-**52 projets · 12 phases · De zéro à Happiness Engineer Automattic**
+**62 projets · 13 phases · 50 scénarios HE WooCommerce · De zéro à Happiness Engineer Automattic**
+
+---
+
+## PHASE 13 — WooCommerce HE Scenarios (Tickets réels)
+
+> Ces scénarios couvrent les situations qu'un Happiness Engineer rencontre au quotidien sur WooCommerce.
+> Format : **Symptôme → Diagnostic → Solution → Réponse client**
+
+---
+
+### PROJET HE-WC-01 — Paiements & Passerelles de paiement ⬜
+
+#### Stripe
+
+**Scénario 1 — Paiement refusé alors que la carte est valide**
+- Symptôme : client dit "ma carte est correcte mais elle est refusée"
+- Diagnostic : vérifier les logs Stripe → Dashboard Stripe → Events & logs
+- Causes possibles :
+  - Carte non supportée dans le pays du marchand
+  - 3D Secure requis mais non configuré
+  - Stripe Radar a bloqué la transaction (règles anti-fraude)
+- Solution : vérifier l'event dans le Dashboard Stripe, lire le `decline_code` (`insufficient_funds`, `card_not_supported`, `authentication_required`)
+- Réponse client : "La carte a été refusée par votre banque. Le code d'erreur est [X]. Veuillez contacter votre banque ou essayer une autre carte."
+
+**Scénario 2 — Paiement visible dans Stripe mais commande absente de WooCommerce**
+- Symptôme : client a été débité, mais aucune commande dans WooCommerce
+- Diagnostic : webhook Stripe non reçu par WooCommerce
+- Vérifier : WooCommerce → Status → Logs → woocommerce-gateway-stripe
+- Vérifier les webhooks : Dashboard Stripe → Developers → Webhooks → voir les erreurs
+- Solution : réenregistrer le webhook depuis WooCommerce → Settings → Payments → Stripe → Configure
+- Si le paiement est réel sans commande : créer manuellement la commande et noter le PaymentIntent ID
+
+**Scénario 3 — Double facturation client**
+- Symptôme : client facturé deux fois pour une seule commande
+- Diagnostic : vérifier si deux commandes existent dans WooCommerce
+- Causes : client a cliqué deux fois sur "Place order", bug frontend avec JS
+- Solution : rembourser la commande en double depuis Stripe Dashboard ou WooCommerce → Order → Refund
+- Prévention : activer la protection anti-double-clic Stripe (idempotency key — automatique dans le plugin)
+
+**Scénario 4 — Webhooks Stripe ne fonctionnent pas**
+```bash
+# Vérifier les logs WooCommerce
+sudo /usr/local/bin/wp option get woocommerce_stripe_settings --allow-root --path=/var/www/monsite
+# Chercher l'URL du webhook dans les logs Stripe
+# Tester le webhook manuellement depuis Stripe Dashboard → Send test webhook
+```
+
+**Scénario 5 — Apple Pay / Google Pay n'apparaît pas au checkout**
+- Cause 1 : site sans HTTPS (requis obligatoirement)
+- Cause 2 : navigateur non compatible (Chrome pour Google Pay, Safari pour Apple Pay)
+- Cause 3 : domaine non enregistré dans Stripe (Apple Pay domain verification)
+- Solution : vérifier le fichier de vérification Apple Pay sur le serveur : `/.well-known/apple-developer-merchantid-domain-association`
+
+**Scénario 6 — Erreur "Your card was declined" en mode production avec Stripe**
+- Différencier : clés test vs production mélangées
+```bash
+sudo /usr/local/bin/wp option get woocommerce_stripe_settings --allow-root --path=/var/www/monsite | grep -i "testmode\|publishable_key"
+```
+- Si `testmode = yes` avec clés live → corriger dans WooCommerce → Settings → Payments → Stripe
+
+**Scénario 7 — 3D Secure échoue et bloque la transaction**
+- Cause : plugin de sécurité bloque l'iframe 3DS (Content Security Policy trop stricte)
+- Solution : ajuster le header CSP dans Nginx pour autoriser `js.stripe.com` et `hooks.stripe.com`
+```nginx
+add_header Content-Security-Policy "frame-src 'self' https://js.stripe.com https://hooks.stripe.com;";
+```
+
+#### PayPal
+
+**Scénario 8 — Commande PayPal bloquée en "Pending"**
+- Cause : paiement PayPal en attente de confirmation (eCheck, litige ouvert)
+- Diagnostic : se connecter au compte PayPal Sandbox/Production → voir le statut du paiement
+- Solution : si eCheck → attendre la compensation (3-5 jours ouvrés). Expliquer au client.
+
+**Scénario 9 — IPN PayPal ne met pas à jour le statut de commande**
+- Cause : IPN (Instant Payment Notification) bloqué par le firewall ou URL mal configurée
+- Solution : vérifier l'URL IPN dans PayPal → Account Settings → Notifications
+
+---
+
+### PROJET HE-WC-02 — Gestion des commandes ⬜
+
+**Scénario 10 — Commande bloquée en "Pending" depuis des heures**
+- Cause 1 : client a abandonné le checkout sans payer
+- Cause 2 : webhook de paiement manqué → commande jamais mise à jour
+- Diagnostic :
+```bash
+mysql -u monsite_user -p'WordPress2025!' -e "
+  SELECT id, status, date_created_gmt, total_amount
+  FROM monsite_db.wp_wc_orders
+  WHERE status = 'wc-pending'
+  ORDER BY date_created_gmt DESC LIMIT 10;"
+```
+- Solution : si le paiement est confirmé dans Stripe, mettre la commande en "Processing" manuellement
+
+**Scénario 11 — Client dit avoir commandé mais aucune commande trouvée**
+- Causes : commande en "Failed" (paiement refusé), commande sous un autre email, multisite (mauvais site)
+- Diagnostic : chercher par email dans WooCommerce → Orders → Search ou en DB :
+```bash
+mysql -u monsite_user -p'WordPress2025!' -e "
+  SELECT id, status, billing_email, total_amount
+  FROM monsite_db.wp_wc_orders
+  WHERE billing_email = 'client@example.com';"
+```
+
+**Scénario 12 — Emails de commande non reçus par le client**
+- Diagnostic rapide : WooCommerce → Settings → Emails → vérifier les emails actifs
+- Tester l'envoi : WooCommerce → Orders → [commande] → Resend email
+- Si l'email ne part pas : configurer WP Mail SMTP
+- Si l'email part mais va en spam : vérifier SPF/DKIM/DMARC
+
+**Scénario 13 — Client reçoit l'email admin au lieu de l'email client**
+- Cause : adresse email admin = adresse email client (compte test)
+- Solution : changer l'email admin WordPress (Settings → General → Admin Email)
+
+**Scénario 14 — Remboursement impossible via WooCommerce**
+- Cause 1 : délai Stripe dépassé (120 jours max pour un remboursement via API)
+- Cause 2 : fonds insuffisants sur le compte Stripe
+- Solution : rembourser directement depuis le Dashboard Stripe → Payments → [paiement] → Refund
+
+**Scénario 15 — Client veut annuler une commande déjà expédiée**
+- Politique : pas de remboursement automatique si déjà expédié
+- Procédure : créer un remboursement manuel dans WooCommerce → Order → Refund
+- Ne pas marquer "Restock" si le produit ne revient pas physiquement
+
+---
+
+### PROJET HE-WC-03 — Produits & Catalogue ⬜
+
+**Scénario 16 — Produit en rupture de stock alors que le stock a été rechargé**
+- Cause : cache WooCommerce ou transient périmé
+```bash
+sudo /usr/local/bin/wp wc tool run clear_transients --user=1 --allow-root --path=/var/www/monsite
+sudo /usr/local/bin/wp cache flush --allow-root --path=/var/www/monsite
+```
+- Vérifier le stock en DB :
+```bash
+mysql -u monsite_user -p'WordPress2025!' -e "
+  SELECT post_id, meta_key, meta_value
+  FROM monsite_db.wp_postmeta
+  WHERE post_id = 13 AND meta_key IN ('_stock', '_stock_status', '_manage_stock');"
+```
+
+**Scénario 17 — Prix de variation ne s'affiche pas**
+- Cause : aucun prix défini sur les variations
+- Diagnostic : WooCommerce → Products → [produit variable] → Variations → vérifier que chaque variation a un prix
+- Fix WP-CLI : vérifier les métadonnées de variation en DB
+
+**Scénario 18 — Image de produit ne s'affiche pas après migration**
+- Cause : URLs des images pointent vers l'ancien domaine
+```bash
+sudo /usr/local/bin/wp media regenerate --allow-root --path=/var/www/monsite
+sudo /usr/local/bin/wp search-replace 'http://ancien-domaine.com' 'http://nouveau-domaine.com' --allow-root --path=/var/www/monsite
+```
+
+**Scénario 19 — Prix promotionnel non appliqué**
+- Cause : date de fin de promotion dépassée, coupon mal configuré, prix en solde non sauvegardé
+- Vérifier en DB :
+```bash
+mysql -u monsite_user -p'WordPress2025!' -e "
+  SELECT meta_key, meta_value FROM monsite_db.wp_postmeta
+  WHERE post_id = 13 AND meta_key IN ('_sale_price', '_regular_price', '_sale_price_dates_from', '_sale_price_dates_to');"
+```
+
+**Scénario 20 — Produit téléchargeable : lien de téléchargement expiré**
+- Cause : limite de téléchargements atteinte ou délai d'expiration dépassé
+- Solution : WooCommerce → Orders → [commande] → réinitialiser le lien de téléchargement
+- Ou étendre la limite via le profil client : WooCommerce → Customers → [client] → Downloads
+
+---
+
+### PROJET HE-WC-04 — Livraison & Taxes ⬜
+
+**Scénario 21 — Aucune méthode de livraison au checkout**
+- Causes : aucune zone de livraison configurée pour le pays du client, adresse de livraison manquante
+- Diagnostic : WooCommerce → Settings → Shipping → Shipping zones
+- Solution : créer une zone "Reste du monde" avec tarif flat rate comme fallback
+
+**Scénario 22 — Livraison gratuite ne se déclenche pas**
+- Cause : coupon "free shipping" mal configuré ou montant minimum non atteint
+- Vérifier : WooCommerce → Settings → Shipping → [zone] → Free Shipping → Minimum order amount
+
+**Scénario 23 — Frais de port calculés incorrectement**
+- Cause : poids/dimensions produit mal configurés ou unités incorrectes (g vs kg)
+- Vérifier : WooCommerce → Settings → Products → Measurements units
+
+**Scénario 24 — TVA calculée de façon incorrecte**
+- Causes : taux de taxe mal configuré, mauvaise classe de taxe, adresse de facturation vs livraison
+- Vérifier : WooCommerce → Settings → Tax
+- Pour EU VAT : vérifier que les règles sont configurées par pays (destination-based)
+
+**Scénario 25 — Client professionnel facturé avec TVA (devrait être exonéré)**
+- Solution : installer un plugin de validation de numéro TVA intracommunautaire
+- Ou créer un rôle utilisateur "Professional" sans taxe
+
+---
+
+### PROJET HE-WC-05 — Checkout & Panier ⬜
+
+**Scénario 26 — Checkout ne se soumet pas (bouton "Place Order" inactif)**
+- Cause : conflit JavaScript entre plugins
+- Diagnostic : Console JavaScript du navigateur (F12) → chercher les erreurs JS
+- Méthode bisection : désactiver les plugins un par un pour isoler le conflit
+```bash
+sudo /usr/local/bin/wp plugin deactivate --all --allow-root --path=/var/www/monsite
+# Réactiver un par un pour isoler
+sudo /usr/local/bin/wp plugin activate woocommerce --allow-root --path=/var/www/monsite
+```
+
+**Scénario 27 — Coupon de réduction non accepté**
+- Causes : coupon expiré, nombre d'utilisations épuisé, restrictions (email, produit, catégorie)
+- Vérifier en DB :
+```bash
+mysql -u monsite_user -p'WordPress2025!' -e "
+  SELECT p.post_title, pm.meta_key, pm.meta_value
+  FROM monsite_db.wp_posts p
+  JOIN monsite_db.wp_postmeta pm ON p.ID = pm.post_id
+  WHERE p.post_type = 'shop_coupon'
+  AND pm.meta_key IN ('discount_type', 'coupon_amount', 'usage_count', 'usage_limit', 'date_expires');"
+```
+
+**Scénario 28 — Panier vide après redirection vers PayPal**
+- Cause : cookie de session WooCommerce non maintenu (conflit HTTPS/HTTP, SameSite cookie)
+- Solution : activer HTTPS partout, vérifier les paramètres du cookie de session WordPress
+
+**Scénario 29 — Page checkout retourne 404**
+- Cause : page WooCommerce "Checkout" supprimée ou slug modifié
+- Solution : WooCommerce → Settings → Advanced → vérifier les pages WooCommerce
+```bash
+sudo /usr/local/bin/wp option get woocommerce_checkout_page_id --allow-root --path=/var/www/monsite
+```
+
+**Scénario 30 — Client ne peut pas modifier la quantité dans le panier**
+- Cause : thème ou plugin personnalisé a désactivé les champs de quantité
+- Solution : vérifier les hooks WooCommerce `woocommerce_cart_item_quantity`
+
+---
+
+### PROJET HE-WC-06 — Comptes clients & My Account ⬜
+
+**Scénario 31 — Client ne peut pas se connecter à "My Account"**
+- Cause 1 : email utilisé ≠ email du compte WooCommerce
+- Cause 2 : mot de passe oublié
+- Cause 3 : compte WooCommerce désactivé (role incorrect)
+- Diagnostic :
+```bash
+sudo /usr/local/bin/wp user get client@example.com --allow-root --path=/var/www/monsite
+```
+
+**Scénario 32 — Client ne voit pas ses commandes dans "My Account"**
+- Cause : commande passée en tant que guest (non connecté), email différent
+- Solution : associer la commande au compte :
+```bash
+sudo /usr/local/bin/wp post meta update [ORDER_ID] _customer_user [USER_ID] --allow-root --path=/var/www/monsite
+```
+
+**Scénario 33 — Email de réinitialisation de mot de passe non reçu**
+- Cause 1 : SMTP mal configuré
+- Cause 2 : email dans les spams
+- Solution temporaire : réinitialiser via WP-CLI
+```bash
+sudo /usr/local/bin/wp user update client@example.com --user_pass="TempPass123!" --allow-root --path=/var/www/monsite
+```
+
+---
+
+### PROJET HE-WC-07 — Abonnements WooCommerce ⬜
+
+**Scénario 34 — Abonnement pas renouvelé automatiquement**
+- Cause principale : wp-cron désactivé ou ne se déclenche pas
+- Diagnostic :
+```bash
+# Vérifier le cron système
+sudo crontab -l
+# Vérifier que wp-cron est activé
+grep -i "DISABLE_WP_CRON" /var/www/monsite/wp-config.php
+# Déclencher manuellement
+sudo /usr/local/bin/wp cron event run --due-now --allow-root --path=/var/www/monsite
+```
+- Solution : configurer un cron système au lieu de wp-cron
+```bash
+# Ajouter au crontab
+*/5 * * * * curl -s http://192.168.11.103/wp-cron.php?doing_wp_cron > /dev/null 2>&1
+```
+
+**Scénario 35 — Client annule son abonnement et veut un remboursement prorata**
+- WooCommerce Subscriptions supporte les remboursements au prorata
+- Calculer : (jours restants / jours totaux) × montant payé
+- Créer le remboursement manuellement via WooCommerce → Subscriptions → [abonnement] → Refund
+
+**Scénario 36 — Paiement de renouvellement échoué (carte expirée)**
+- WooCommerce Subscriptions envoie des emails de rappel automatiques
+- Configurer la politique de réessai : Settings → Subscriptions → Retry Rules
+- Donner au client X jours pour mettre à jour sa carte
+
+---
+
+### PROJET HE-WC-08 — Performance & Technique avancée ⬜
+
+**Scénario 37 — Page checkout très lente (5+ secondes)**
+- Diagnostic avec Query Monitor : combien de requêtes SQL sur la page checkout ?
+- Causes fréquentes :
+  - Trop de plugins actifs
+  - Requêtes WooCommerce non optimisées (sessions orphelines en DB)
+- Nettoyer les sessions WooCommerce :
+```bash
+sudo /usr/local/bin/wp wc tool run cleanup_sessions --user=1 --allow-root --path=/var/www/monsite
+```
+- Vérifier la taille de la table des sessions :
+```bash
+mysql -u monsite_user -p'WordPress2025!' -e "
+  SELECT COUNT(*) as sessions, SUM(LENGTH(session_value))/1024/1024 as size_mb
+  FROM monsite_db.wp_woocommerce_sessions;"
+```
+
+**Scénario 38 — Erreur 500 après mise à jour WooCommerce**
+- Activer le debug :
+```bash
+sudo grep -n "WP_DEBUG" /var/www/monsite/wp-config.php
+# Si absent, ajouter :
+sudo /usr/local/bin/wp config set WP_DEBUG true --raw --allow-root --path=/var/www/monsite
+sudo /usr/local/bin/wp config set WP_DEBUG_LOG true --raw --allow-root --path=/var/www/monsite
+```
+- Lire le log :
+```bash
+sudo tail -f /var/www/monsite/wp-content/debug.log
+```
+- Méthode : désactiver tous les plugins sauf WooCommerce, puis réactiver un par un
+
+**Scénario 39 — HPOS : migration des données de commandes**
+- WooCommerce 8+ stocke les commandes dans `wp_wc_orders` (HPOS) au lieu de `wp_posts`
+- Vérifier le statut de la migration HPOS :
+```bash
+sudo /usr/local/bin/wp wc hpos --allow-root --path=/var/www/monsite
+```
+- Si erreur de migration : WooCommerce → Status → Tools → Orders Migration
+
+**Scénario 40 — Base de données WooCommerce trop grosse**
+- Identifier les plus grosses tables :
+```bash
+mysql -u monsite_user -p'WordPress2025!' -e "
+  SELECT table_name, ROUND(((data_length + index_length) / 1024 / 1024), 2) AS 'Size (MB)'
+  FROM information_schema.TABLES
+  WHERE table_schema = 'monsite_db'
+  ORDER BY (data_length + index_length) DESC LIMIT 10;"
+```
+- Nettoyer les données obsolètes :
+```bash
+sudo /usr/local/bin/wp wc tool run delete_orphaned_variations --user=1 --allow-root --path=/var/www/monsite
+sudo /usr/local/bin/wp wc tool run clear_expired_transients --user=1 --allow-root --path=/var/www/monsite
+```
+
+---
+
+### PROJET HE-WC-09 — Intégrations & Extensions ⬜
+
+**Scénario 41 — WooCommerce Payments (Woo's own gateway) ne s'active pas**
+- Problème : WooCommerce Payments requiert une connexion à Woo.com/WordPress.com
+- Solution : connecter Jetpack en premier, puis activer WooCommerce Payments
+
+**Scénario 42 — Extension premium WooCommerce — licence expirée**
+- Symptôme : les mises à jour ne s'installent plus, avertissement "licence invalide"
+- Solution : renouveler la licence sur woo.com, entrer la nouvelle clé dans WooCommerce → Extensions
+
+**Scénario 43 — Conflit entre WooCommerce et un plugin de cache**
+- Symptôme : panier vide, prix incorrect, stock non mis à jour pour certains clients
+- Cause : le plugin de cache sert une version cachée de la page panier/checkout
+- Solution : exclure les pages WooCommerce du cache (cart, checkout, my-account)
+```nginx
+# Dans Nginx — exclure le cache WooCommerce
+if ($request_uri ~* "(/cart/|/checkout/|/my-account/|/wc-api/)") {
+    set $skip_cache 1;
+}
+```
+
+**Scénario 44 — WooCommerce REST API — permission refusée**
+- Diagnostic : tester l'API
+```bash
+curl -u consumer_key:consumer_secret https://192.168.11.103/wp-json/wc/v3/orders
+```
+- Causes : clé API WooCommerce avec permissions "Read" seulement, permaliens non rechargés
+- Solution : WooCommerce → Settings → Advanced → REST API → créer une nouvelle clé avec permissions "Read/Write"
+
+**Scénario 45 — Intégration comptable (QuickBooks, Xero) ne sync pas les commandes**
+- Cause : webhook WooCommerce mal configuré pour l'outil comptable
+- Vérifier : WooCommerce → Settings → Advanced → Webhooks
+- Tester le webhook manuellement et vérifier les logs de livraison
+
+---
+
+### PROJET HE-WC-10 — Scénarios WordPress.com eCommerce Plan ⬜
+
+Le plan **WordPress.com eCommerce** est WooCommerce hébergé sur WordPress.com.
+Les HE de WordPress.com supportent aussi ce plan.
+
+**Scénario 46 — Boutique WordPress.com eCommerce — produit ne s'affiche pas**
+- Même diagnostic qu'en self-hosted mais sans accès SSH
+- Utiliser WP-CLI via le terminal WordPress.com (Business plan+)
+- Vérifier la visibilité catalogue depuis WooCommerce → Products → [produit] → Catalog Visibility
+
+**Scénario 47 — Frais de transaction sur WordPress.com eCommerce**
+- Le plan eCommerce a 0% de frais de transaction (avantage vs Business)
+- Expliquer la différence au client : Business = 0% mais pas de WooCommerce natif, eCommerce = WooCommerce intégré
+
+**Scénario 48 — Migration boutique vers WordPress.com eCommerce**
+- Exporter les produits depuis l'ancien site en CSV
+- Importer via WooCommerce → Products → Import
+- Exporter/importer les commandes via WooCommerce → Orders → Export
+- Les médias : utiliser l'outil d'import médias WordPress.com
+
+**Scénario 49 — Limites du plan WordPress.com eCommerce vs VIP**
+- eCommerce : WooCommerce complet, plugins approuvés uniquement
+- VIP : pas de WooCommerce natif, architecture custom, pour les grandes entreprises
+- Savoir quand recommander VIP au lieu d'eCommerce
+
+**Scénario 50 — Client veut installer un plugin WooCommerce non disponible sur WordPress.com**
+- Problème : WordPress.com eCommerce limite les plugins aux extensions approuvées
+- Solution : recommander self-hosted (passer par Jetpack) ou trouver une alternative approuvée
 
 ---
 
