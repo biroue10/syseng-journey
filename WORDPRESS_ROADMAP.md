@@ -187,7 +187,7 @@ Chaque projet est hands-on, public sur GitHub, avec des scénarios de troublesho
 
 ---
 
-### PROJET WC-05 — woocommerce-troubleshooting ⬜
+### PROJET WC-05 — woocommerce-troubleshooting ✅
 > Diagnostiquer et résoudre les problèmes WooCommerce courants
 
 Scénarios réels à reproduire et résoudre :
@@ -1232,7 +1232,7 @@ Les compétences techniques ne suffisent pas — la façon de les communiquer es
 | WC-02 | woocommerce-products | WooCommerce | ✅ |
 | WC-03 | woocommerce-orders | WooCommerce | ✅ |
 | WC-04 | woocommerce-coupons | WooCommerce | ✅ |
-| WC-05 | woocommerce-troubleshooting | WooCommerce | ⬜ |
+| WC-05 | woocommerce-troubleshooting | WooCommerce | ✅ |
 | WP-08 | wordpress-monitoring | Production | ⬜ |
 | WP-09 | wordpress-docker | Production | ⬜ |
 | WP-10 | wordpress-migration | Production | ⬜ |
