@@ -1295,7 +1295,7 @@ Les compétences techniques ne suffisent pas — la façon de les communiquer es
 
 ---
 
-### PROJET HE-WC-01 — Paiements & Passerelles de paiement ⬜
+### PROJET HE-WC-01 — Paiements & Passerelles de paiement ✅
 
 #### Stripe
 
