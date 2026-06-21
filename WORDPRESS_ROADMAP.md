@@ -1365,7 +1365,7 @@ add_header Content-Security-Policy "frame-src 'self' https://js.stripe.com https
 
 ---
 
-### PROJET HE-WC-02 — Gestion des commandes ⬜
+### PROJET HE-WC-02 — Gestion des commandes ✅
 
 **Scénario 10 — Commande bloquée en "Pending" depuis des heures**
 - Cause 1 : client a abandonné le checkout sans payer
