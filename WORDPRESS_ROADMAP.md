@@ -1275,7 +1275,7 @@ Les compétences techniques ne suffisent pas — la façon de les communiquer es
 | HE-06 | soft-skills-support | HE Simulations | ⬜ |
 | HE-WC-01 | paiements-stripe-paypal (7 scénarios) | WooCommerce HE | ⬜ |
 | HE-WC-02 | gestion-commandes (6 scénarios) | WooCommerce HE | ⬜ |
-| HE-WC-03 | produits-catalogue (5 scénarios) | WooCommerce HE | ⬜ |
+| HE-WC-03 | produits-catalogue (5 scénarios) | WooCommerce HE | ✅ |
 | HE-WC-04 | livraison-taxes (5 scénarios) | WooCommerce HE | ⬜ |
 | HE-WC-05 | checkout-panier (5 scénarios) | WooCommerce HE | ⬜ |
 | HE-WC-06 | comptes-clients (3 scénarios) | WooCommerce HE | ⬜ |
@@ -1412,7 +1412,7 @@ mysql -u monsite_user -p'WordPress2025!' -e "
 
 ---
 
-### PROJET HE-WC-03 — Produits & Catalogue ⬜
+### PROJET HE-WC-03 — Produits & Catalogue ✅
 
 **Scénario 16 — Produit en rupture de stock alors que le stock a été rechargé**
 - Cause : cache WooCommerce ou transient périmé
