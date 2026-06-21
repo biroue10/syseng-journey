@@ -1276,7 +1276,7 @@ Les compétences techniques ne suffisent pas — la façon de les communiquer es
 | HE-WC-01 | paiements-stripe-paypal (7 scénarios) | WooCommerce HE | ⬜ |
 | HE-WC-02 | gestion-commandes (6 scénarios) | WooCommerce HE | ⬜ |
 | HE-WC-03 | produits-catalogue (5 scénarios) | WooCommerce HE | ✅ |
-| HE-WC-04 | livraison-taxes (5 scénarios) | WooCommerce HE | ⬜ |
+| HE-WC-04 | livraison-taxes (5 scénarios) | WooCommerce HE | ✅ |
 | HE-WC-05 | checkout-panier (5 scénarios) | WooCommerce HE | ⬜ |
 | HE-WC-06 | comptes-clients (3 scénarios) | WooCommerce HE | ⬜ |
 | HE-WC-07 | abonnements (3 scénarios) | WooCommerce HE | ⬜ |
@@ -1456,7 +1456,7 @@ mysql -u monsite_user -p'WordPress2025!' -e "
 
 ---
 
-### PROJET HE-WC-04 — Livraison & Taxes ⬜
+### PROJET HE-WC-04 — Livraison & Taxes ✅
 
 **Scénario 21 — Aucune méthode de livraison au checkout**
 - Causes : aucune zone de livraison configurée pour le pays du client, adresse de livraison manquante
